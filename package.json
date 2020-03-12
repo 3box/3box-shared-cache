@@ -38,5 +38,10 @@
     "standard": "^14.3.1",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "abstract-leveldown": "^6.2.2",
+    "level": "^6.0.1",
+    "postmsg-rpc": "^2.4.0"
   }
 }
