@@ -4,6 +4,7 @@
   "description": "The shared cache module that 3box uses to share cache across domains using an iframe",
   "main": "src/index.js",
   "scripts": {
+    "build": "npx webpack --config webpack.config.js",
     "test": "test"
   },
   "repository": {
@@ -21,5 +22,12 @@
   "bugs": {
     "url": "https://github.com/3box/3box-shared-cache/issues"
   },
-  "homepage": "https://github.com/3box/3box-shared-cache#readme"
+  "homepage": "https://github.com/3box/3box-shared-cache#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
+  }
 }
