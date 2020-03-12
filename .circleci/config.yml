@@ -1,0 +1,40 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/3box-js
+    docker:
+      - image: circleci/node:10.18.1
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - dependencies-cache-{{ checksum "package.json" }}
+
+      - run:
+          name: install dependencies
+          command: npm ci
+
+      - run:
+          name: test
+          command: npm test
+
+      - run:
+          name: lint
+          command: npm run lint
+      
+      - run:
+          name: build
+          command: npm run build
+
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+
+workflows:
+  version: 2
+  lint-test-and-build:
+    jobs:
+      - build
