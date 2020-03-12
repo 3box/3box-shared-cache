@@ -1,0 +1,25 @@
+{
+  "name": "3box-shared-cache",
+  "version": "0.1.0",
+  "description": "The shared cache module that 3box uses to share cache across domains using an iframe",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/3box/3box-shared-cache.git"
+  },
+  "keywords": [
+    "3box",
+    "shared-cache",
+    "cache",
+    "iframe"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/3box/3box-shared-cache/issues"
+  },
+  "homepage": "https://github.com/3box/3box-shared-cache#readme"
+}
