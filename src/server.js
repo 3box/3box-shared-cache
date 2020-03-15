@@ -1,25 +1,20 @@
-const { expose } = require('postmsg-rpc')
-
 const createServer = ({ postMessage }) => {
-	const databases = {}
+  const databases = {}
 
-	const init = () => {
-		databases.orbit = {}
-		databases.ipfsBlockstore = {}
-	}
+  const init = () => {
+    databases.orbit = {}
+    databases.ipfsBlockstore = {}
+  }
 
-	const start = () => {
-	}
+  const start = () => {}
 
-	const stop = () = {
-	}
+  const stop = () => {}
 
-	return {
-		init,
-		start,
-		stop,
-	}
+  return {
+    init,
+    start,
+    stop
+  }
 }
 
 module.exports = { createServer }
-
