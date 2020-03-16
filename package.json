@@ -35,8 +35,14 @@
     "@babel/preset-env": "^7.8.7",
     "babel-loader": "^8.0.6",
     "jest": "^25.1.0",
+    "levelup": "^4.3.2",
     "standard": "^14.3.1",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11"
+  },
+  "dependencies": {
+    "abstract-leveldown": "^6.2.2",
+    "level": "^6.0.1",
+    "postmsg-rpc": "^2.4.0"
   }
 }

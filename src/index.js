@@ -1,4 +1,5 @@
+const { createClient } = require('./client')
+
 module.exports = {
-  Store: {},
-  Server: {}
+  createClient
 }
