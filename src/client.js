@@ -1,9 +1,7 @@
-const AbstractLevelDOWN = require('abstract-leveldown').AbstractLevelDOWN
+const { caller } = require('postmsg-rpc')
+const { AbstractLevelDOWN } = require('abstract-leveldown')
 
-const createClient = ({ postMessage }) => {
-  if (!postMessage) {
-    throw new Error('postMessage argument is required')
-  }
+const createClient = (opts) => {
 
   return class Store extends AbstractLevelDOWN {
     constructor (location, ...args) {
@@ -12,9 +10,21 @@ const createClient = ({ postMessage }) => {
     }
 
     _get (key, options, callback) {
-      console.log('calling get', { postMessage })
-      postMessage('get', key, options, callback)
-      setTimeout(callback)
+			const get = caller('get', opts)
+      get(key, options)
+				.then((response) => {
+					callback(null, response)
+				})
+				.catch(callback)
+    }
+
+    _put (key, value, options, callback) {
+			const put = caller('put', opts)
+      put(key, value, options)
+				.then((response) => {
+					callback(null, response)
+				})
+				.catch(callback)
     }
   }
 }
