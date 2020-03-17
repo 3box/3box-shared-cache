@@ -46,6 +46,10 @@ describe("Shared cache module", () => {
           return backendDb[key] = value
         }, serverOpts)
 
+        expose('del', (key, options) => {
+          delete backendDb[key]
+        }, serverOpts)
+
         Client = createClient({
 					postMessage: iframe.postMessage,
 					addListener: window.addListener,
@@ -68,6 +72,14 @@ describe("Shared cache module", () => {
         done()
       })
     })
+
+    it("del", (done) => {
+      db.del('key', (err) => {
+        expect(backendDb.key).toEqual(undefined)
+        done()
+      })
+    })
+
   })
 })
 
