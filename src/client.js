@@ -8,31 +8,43 @@ const createClient = (opts) => {
       this.location = location
     }
 
-    _get (key, options, callback) {
+    async _get (key, options, callback) {
       const get = caller('get', opts)
-      get(key, options)
-        .then((response) => {
-          callback(null, response)
-        })
-        .catch(callback)
+
+      let response
+      try {
+        response = await get(key, options)
+      } catch (error) {
+        callback(error)
+      }
+
+      callback(null, response)
     }
 
-    _put (key, value, options, callback) {
+    async _put (key, value, options, callback) {
       const put = caller('put', opts)
-      put(key, value, options)
-        .then((response) => {
-          callback(null, response)
-        })
-        .catch(callback)
+
+      let response
+      try {
+        response = await put(key, value, options)
+      } catch (error) {
+        callback(error)
+      }
+
+      callback(null, response)
     }
 
-    _del (key, options, callback) {
+    async _del (key, options, callback) {
       const del = caller('del', opts)
-      del(key, options)
-        .then((response) => {
-          callback(null, response)
-        })
-        .catch(callback)
+
+      let response
+      try {
+        response = await del(key, options)
+      } catch (error) {
+        callback(error)
+      }
+
+      callback(null, response)
     }
   }
 }
