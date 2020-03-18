@@ -8,6 +8,30 @@ const createClient = (opts) => {
       this.location = location
     }
 
+    async _open (options, callback) {
+      const open = caller('open', opts)
+
+      try {
+        await open(options)
+      } catch (error) {
+        callback(error)
+      }
+
+      callback()
+    }
+
+    async _close (callback) {
+      const close = caller('close', opts)
+
+      try {
+        await close()
+      } catch (error) {
+        callback(error)
+      }
+
+      callback()
+    }
+
     async _get (key, options, callback) {
       const get = caller('get', opts)
 
