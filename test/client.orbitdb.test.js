@@ -14,7 +14,6 @@ describe("Shared cache module", () => {
   
   beforeAll(
     async () => {
-      console.log('this is run multiple times?')
       const clientOpts = getClientOpts()
       ClientStore = createClient(clientOpts)
 
@@ -55,7 +54,7 @@ describe("Shared cache module", () => {
   )
 
   describe("ClientStore against object store through orbit-db as cache", () => {
-    it.only('updates cache on database instantiation', async () => {
+    it('updates cache on database instantiation', async () => {
       const hash = await db.add('hello')
       expect(
         JSON.parse(
