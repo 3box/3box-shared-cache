@@ -39,6 +39,7 @@
     "levelup": "^4.3.2",
     "orbit-db": "^0.23.1",
     "orbit-db-cache": "^0.3.0",
+    "orbit-db-keystore": "^0.3.4",
     "orbit-db-storage-adapter": "^0.5.3",
     "standard": "^14.3.1",
     "webpack": "^4.42.0",
