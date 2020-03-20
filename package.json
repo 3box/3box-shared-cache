@@ -35,6 +35,7 @@
     "@babel/preset-env": "^7.8.7",
     "babel-loader": "^8.0.6",
     "ipfs": "^0.41.2",
+    "ipfs-repo": "^1.0.0",
     "jest": "^25.1.0",
     "levelup": "^4.3.2",
     "orbit-db": "^0.23.1",
