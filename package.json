@@ -4,9 +4,13 @@
   "description": "The shared cache module that 3box uses to share cache across domains using an iframe",
   "main": "src/index.js",
   "scripts": {
-    "build": "npx webpack --config webpack.config.js",
     "lint": "./node_modules/.bin/standard --verbose src/**",
-    "test": "jest"
+    "test": "jest",
+    "build": "./node_modules/.bin/webpack-cli --config webpack.config.js",
+    "build:dev": "./node_modules/.bin/webpack-cli --config webpack.dev.config.js",
+    "example:server:start": "PORT=30001 INDEX_FILE='./server.html' node example/node-server",
+    "example:client:start": "INDEX_FILE='./client.html' node example/node-server",
+    "example:start": "npm run build:dev && npm run example:server:start && npm run example:client:start"
   },
   "repository": {
     "type": "git",
@@ -34,6 +38,7 @@
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
     "babel-loader": "^8.0.6",
+    "express": "^4.17.1",
     "ipfs": "^0.41.2",
     "ipfs-repo": "^1.0.0",
     "jest": "^25.1.0",
@@ -42,6 +47,7 @@
     "orbit-db-cache": "^0.3.0",
     "orbit-db-keystore": "^0.3.4",
     "orbit-db-storage-adapter": "^0.5.3",
+    "serve-static": "^1.14.1",
     "standard": "^14.3.1",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11"

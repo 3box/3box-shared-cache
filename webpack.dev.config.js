@@ -1,13 +1,13 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: {
+    client: './example/client.js',
+    server: './example/server.js'
+  },
   output: {
-    filename: 'main.js',
-    path: path.resolve(__dirname, 'dist'),
-    library: 'SharedCache',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'example', 'dist'),
   },
 	module: {
 	  rules: [
