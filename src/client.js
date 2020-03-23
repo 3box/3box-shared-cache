@@ -6,17 +6,22 @@ const createClient = (opts) => {
     constructor (location, ...args) {
       super(location, ...args)
       this.location = location
+
+      caller('create', opts)(this.location, ...args)
     }
 
     async _open (options, callback) {
+      console.log('calling open')
       const open = caller('open', opts)
 
       try {
-        await open(options)
+        await open(this.location, options)
       } catch (error) {
+        console.log("caught error", error)
         callback(error)
       }
 
+      console.log('resolved, calling callback')
       callback()
     }
 
@@ -24,7 +29,7 @@ const createClient = (opts) => {
       const close = caller('close', opts)
 
       try {
-        await close()
+        await close(this.location)
       } catch (error) {
         callback(error)
       }
@@ -37,8 +42,9 @@ const createClient = (opts) => {
 
       let response
       try {
-        response = await get(key, options)
+        response = await get(this.location, key, options)
       } catch (error) {
+        console.log('error', { error })
         callback(error)
       }
 
@@ -50,7 +56,7 @@ const createClient = (opts) => {
 
       let response
       try {
-        response = await put(key, value, options)
+        response = await put(this.location, key, value, options)
       } catch (error) {
         callback(error)
       }
@@ -63,7 +69,7 @@ const createClient = (opts) => {
 
       let response
       try {
-        response = await del(key, options)
+        response = await del(this.location, key, options)
       } catch (error) {
         callback(error)
       }
