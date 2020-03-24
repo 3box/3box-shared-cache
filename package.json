@@ -9,7 +9,6 @@
     "build": "./node_modules/.bin/webpack-cli --config webpack.config.js",
     "build:dev": "./node_modules/.bin/webpack-cli --config webpack.dev.config.js",
     "example:server:start": "PORT=30001 INDEX_FILE='./server.html' node example/node-server",
-    "example:client:start": "INDEX_FILE='./client.html' node example/node-server",
     "example:start": "npm run build:dev && npm run example:server:start && npm run example:client:start"
   },
   "repository": {
