@@ -1,6 +1,9 @@
 const { caller } = require('postmsg-rpc')
 const { AbstractLevelDOWN } = require('abstract-leveldown')
 
+const OrbitDbStorageAdapter = require('orbit-db-storage-adapter')
+const LevelUp = require('levelup')
+
 const createClient = (opts) => {
   return class Store extends AbstractLevelDOWN {
     constructor (location, ...args) {
@@ -79,4 +82,27 @@ const createClient = (opts) => {
   }
 }
 
-module.exports = { createClient }
+const createOrbitStorageProxy = async (path, { postMessage }) => {
+
+  const ClientStore = createClient({ postMessage })
+  const storage = OrbitDbStorageAdapter(
+    (...args) => new ClientStore(...args),
+    {}
+  )
+
+  return await storage.createStore(path)
+}
+
+const createIpfsStorageProxy = ({ postMessage }) => {
+  const ClientStore = createClient({ postMessage })
+  
+  return (...args) => LevelUp(
+    new ClientStore(...args)
+  )
+}
+
+module.exports = {
+  createClient,
+  createOrbitStorageProxy,
+  createIpfsStorageProxy,
+}

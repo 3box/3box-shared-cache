@@ -38,24 +38,24 @@ const getClientOpts = () => ({
 const startRpcServer = (opts) => {
   const serverOpts = getServerOpts()
 
-  expose('open', (options) => {
+  expose('open', (location, options) => {
     return opts.db = {}
   }, serverOpts)
 
-  expose('close', () => {
+  expose('close', (location) => {
     return opts.db = {}
   }, serverOpts)
 
-  expose('get', (key, options) => {
+  expose('get', (location, key, options) => {
     return opts.db[key]
   }, serverOpts)
   
-  expose('put', (key, value, options) => {
+  expose('put', (location, key, value, options) => {
     opts.db[key] = value
     return opts.db[key]
   }, serverOpts)
 
-  expose('del', (key, options) => {
+  expose('del', (location, key, options) => {
     delete opts.db[key]
   }, serverOpts)
 }

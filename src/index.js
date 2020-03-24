@@ -1,5 +1,7 @@
-const { createClient } = require('./client')
+const { createClient, createOrbitStorageProxy, createIpfsStorageProxy } = require('./client')
 
 module.exports = {
-  createClient
+  createClient,
+  createOrbitStorageProxy,
+  createIpfsStorageProxy,
 }
