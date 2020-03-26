@@ -22,11 +22,13 @@ const createClient = (opts) => {
     }
 
     _deserialize (v) {
-      return JSON.parse(v)
-    }
+      const r = JSON.parse(v)
 
-    _deserializeBuffer(v) {
-      return JSON.parse(v).data
+      if (r.type && r.type === "Buffer") {
+        return Buffer.from(r.data)
+      }
+
+      return r
     }
 
     async _open (options, callback) {
@@ -64,12 +66,7 @@ const createClient = (opts) => {
         return callback(error)
       }
 
-      if (options.asBuffer) {
-        const r = Buffer.from(this._deserializeBuffer(response))
-        callback(null, r)
-      } else {
-        callback(null, this._deserialize(response))
-      }
+      callback(null, this._deserialize(response))
     }
 
     async _put (key, value, options, callback) {
