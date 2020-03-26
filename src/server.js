@@ -15,7 +15,7 @@ const methods = {
   open: (databases, path, options) => new Promise(
     (resolve, reject) => {
       if (!databases[path]) {
-        reject("Unknown database")
+        reject(new Error('Unknown database'))
       }
 
       databases[path].open(options, (err) => {
@@ -28,7 +28,7 @@ const methods = {
   close: (databases, path) => new Promise(
     (resolve, reject) => {
       if (!databases[path]) {
-        reject("Unknown database")
+        reject(new Error('Unknown database'))
       }
 
       databases[path].close((err) => {
@@ -41,9 +41,9 @@ const methods = {
   get: (databases, path, key, options) => new Promise(
     (resolve, reject) => {
       if (!databases[path]) {
-        reject("Unknown database")
+        reject(new Error('Unknown database'))
       }
-      
+
       const k = deserialize(key)
 
       databases[path].get(k, options, (err, value) => {
@@ -61,7 +61,7 @@ const methods = {
   put: (databases, path, key, value, options) => new Promise(
     (resolve, reject) => {
       if (!databases[path]) {
-        reject("Unknown database")
+        reject(new Error('Unknown database'))
       }
 
       const k = deserialize(key)
@@ -77,7 +77,7 @@ const methods = {
   del: (databases, path, key, options) => new Promise(
     (resolve, reject) => {
       if (!databases[path]) {
-        reject("Unknown database")
+        reject(new Error('Unknown database'))
       }
 
       const k = deserialize(key)
@@ -92,9 +92,9 @@ const methods = {
   batch: (databases, path, arr, options) => new Promise(
     (resolve, reject) => {
       if (!databases[path]) {
-        reject("Unknown database")
+        reject(new Error('Unknown database'))
       }
-      
+
       const ops = arr.map(
         (op) => {
           const o = {
@@ -115,7 +115,7 @@ const methods = {
         resolve()
       })
     }
-  ),
+  )
 }
 
 const createServer = ({ postMessage }) => {
@@ -131,7 +131,7 @@ const createServer = ({ postMessage }) => {
       get: null,
       put: null,
       del: null,
-      batch: null,
+      batch: null
     }
   }
 
@@ -162,7 +162,7 @@ const createServer = ({ postMessage }) => {
   return {
     init,
     start,
-    stop,
+    stop
   }
 }
 

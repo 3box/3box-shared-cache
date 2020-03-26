@@ -13,18 +13,18 @@ const createClient = (opts) => {
       caller('create', opts)(this.location, ...args)
     }
 
-    _serializeKey(key) {
+    _serializeKey (key) {
       return JSON.stringify(key)
     }
 
-    _serializeValue(value) {
+    _serializeValue (value) {
       return JSON.stringify(value)
     }
 
     _deserialize (v) {
       const r = JSON.parse(v)
 
-      if (r.type && r.type === "Buffer") {
+      if (r.type && r.type === 'Buffer') {
         return Buffer.from(r.data)
       }
 
@@ -94,7 +94,7 @@ const createClient = (opts) => {
 
       callback(null, response)
     }
-  
+
     async _batch (arr, options, callback) {
       const batch = caller('batch', opts)
 
@@ -111,14 +111,13 @@ const createClient = (opts) => {
 }
 
 const createOrbitStorageProxy = async (path, { postMessage }) => {
-
   const ClientStore = createClient({ postMessage })
   const storage = OrbitDbStorageAdapter(
     (...args) => new ClientStore(...args),
     {}
   )
 
-  return await storage.createStore(path)
+  return storage.createStore(path)
 }
 
 const proxyGetMethod = (levelupInstance) => {
@@ -153,7 +152,7 @@ const proxyGetMethod = (levelupInstance) => {
 
 const createIpfsStorageProxy = ({ postMessage }) => {
   const ClientStore = createClient({ postMessage })
-  
+
   return (...args) => proxyGetMethod(
     LevelUp(
       new ClientStore(...args)
@@ -164,5 +163,5 @@ const createIpfsStorageProxy = ({ postMessage }) => {
 export {
   createClient,
   createOrbitStorageProxy,
-  createIpfsStorageProxy,
+  createIpfsStorageProxy
 }
