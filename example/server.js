@@ -1,8 +1,7 @@
-const { createServer } = require("../src/index")
+const { createServer } = require("../src")
 
 const serverOpts = {
   postMessage: (...args) => {
-    console.log("posting to windpw")
     return window.parent.postMessage(...args)
   }
 }

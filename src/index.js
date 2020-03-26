@@ -1,7 +1,7 @@
 const { createClient, createOrbitStorageProxy, createIpfsStorageProxy } = require('./client')
 const { createServer } = require("./server")
 
-module.exports = {
+export {
   createClient,
   createOrbitStorageProxy,
   createIpfsStorageProxy,

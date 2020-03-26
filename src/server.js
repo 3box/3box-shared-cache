@@ -1,10 +1,13 @@
 const Level = require('level')
 const { expose } = require('postmsg-rpc')
 
+const deserialize = (v) => JSON.parse(v)
+const serialize = (v) => JSON.stringify(v)
+
 const methods = {
-  create: (databases, path) => new Promise(
+  create: (databases, path, ...args) => new Promise(
     (resolve, reject) => {
-      databases[path] = Level(path)
+      databases[path] = Level(path, ...args)
       resolve(path)
     }
   ),
@@ -40,14 +43,17 @@ const methods = {
       if (!databases[path]) {
         reject("Unknown database")
       }
+      
+      const k = deserialize(key)
 
-      databases[path].get(key, options, (err, value) => {
+      databases[path].get(k, options, (err, value) => {
         if (err) {
-          const keyNotFound = (/notfound/i).test(err) || err.notFound
-          if (!keyNotFound) reject(err)
+          reject(err)
+          // const keyNotFound = (/notfound/i).test(err) || err.notFound
+          // console.log({ keyNotFound, key })
+          // if (!keyNotFound) reject(err)
         }
-
-        resolve(value)
+        resolve(serialize(value))
       })
     }
   ),
@@ -58,7 +64,10 @@ const methods = {
         reject("Unknown database")
       }
 
-      databases[path].put(key, value, options, (err) => {
+      const k = deserialize(key)
+      const v = deserialize(value)
+
+      databases[path].put(k, v, options, (err) => {
         if (err) reject(err)
         resolve()
       })
@@ -71,7 +80,37 @@ const methods = {
         reject("Unknown database")
       }
 
-      databases[path].del(key, options, (err) => {
+      const k = deserialize(key)
+
+      databases[path].del(k, options, (err) => {
+        if (err) reject(err)
+        resolve()
+      })
+    }
+  ),
+
+  batch: (databases, path, arr, options) => new Promise(
+    (resolve, reject) => {
+      if (!databases[path]) {
+        reject("Unknown database")
+      }
+      
+      const ops = arr.map(
+        (op) => {
+          const o = {
+            ...op,
+            key: deserialize(op.key)
+          }
+
+          if (op.value) {
+            o.value = deserialize(op.value)
+          }
+
+          return o
+        }
+      )
+
+      databases[path].batch(ops, options, (err) => {
         if (err) reject(err)
         resolve()
       })
@@ -92,6 +131,7 @@ const createServer = ({ postMessage }) => {
       get: null,
       put: null,
       del: null,
+      batch: null,
     }
   }
 
@@ -102,6 +142,7 @@ const createServer = ({ postMessage }) => {
     rpcs.get = expose('get', methods.get.bind(null, databases), { postMessage })
     rpcs.put = expose('put', methods.put.bind(null, databases), { postMessage })
     rpcs.del = expose('del', methods.del.bind(null, databases), { postMessage })
+    rpcs.batch = expose('batch', methods.batch.bind(null, databases), { postMessage })
   }
 
   const stop = () => {
@@ -125,4 +166,4 @@ const createServer = ({ postMessage }) => {
   }
 }
 
-module.exports = { createServer }
+export { createServer }
