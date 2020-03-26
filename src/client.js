@@ -121,11 +121,43 @@ const createOrbitStorageProxy = async (path, { postMessage }) => {
   return await storage.createStore(path)
 }
 
+const proxyGetMethod = (levelupInstance) => {
+  const get = levelupInstance.get.bind(levelupInstance)
+
+  levelupInstance.get = (key, options, callback) => {
+    if (!callback) {
+      return new Promise(
+        (resolve, reject) => {
+          get(key, options, (err, value) => {
+            if (err) {
+              err.notFound = true
+              reject(err)
+            }
+            resolve(value)
+          })
+        }
+      )
+    }
+
+    get(key, options, (err, value) => {
+      if (err) {
+        err.notFound = true
+        callback(err, null)
+      }
+      callback(null, value)
+    })
+  }
+
+  return levelupInstance
+}
+
 const createIpfsStorageProxy = ({ postMessage }) => {
   const ClientStore = createClient({ postMessage })
   
-  return (...args) => LevelUp(
-    new ClientStore(...args)
+  return (...args) => proxyGetMethod(
+    LevelUp(
+      new ClientStore(...args)
+    )
   )
 }
 
