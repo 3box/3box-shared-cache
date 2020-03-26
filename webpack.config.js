@@ -5,9 +5,6 @@ module.exports = {
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
-    library: 'SharedCache',
-    libraryTarget: 'umd',
-    umdNamedDefine: true
   },
 	module: {
 	  rules: [

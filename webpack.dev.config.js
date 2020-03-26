@@ -1,8 +1,9 @@
 const path = require('path');
 
 module.exports = {
+  mode: 'development',
+  devtool: 'source-map',
   entry: {
-    client: './example/client.js',
     server: './example/server.js'
   },
   output: {
@@ -17,7 +18,10 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-           presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env'],
+            plugins: [
+              ['@babel/plugin-transform-runtime'],
+            ]
           }
         }
       }

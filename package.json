@@ -2,7 +2,7 @@
   "name": "3box-shared-cache",
   "version": "0.1.0",
   "description": "The shared cache module that 3box uses to share cache across domains using an iframe",
-  "main": "dist/main.js",
+  "main": "src/index.js",
   "scripts": {
     "lint": "./node_modules/.bin/standard --verbose src/**",
     "test": "jest",
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
+    "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.8.7",
     "babel-loader": "^8.0.6",
     "express": "^4.17.1",
@@ -52,6 +53,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "@babel/runtime": "^7.9.2",
     "abstract-leveldown": "^6.2.2",
     "level": "^6.0.1",
     "postmsg-rpc": "^2.4.0"
