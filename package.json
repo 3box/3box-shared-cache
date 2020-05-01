@@ -7,9 +7,9 @@
     "lint": "./node_modules/.bin/standard --verbose src/**",
     "test": "jest",
     "build": "./node_modules/.bin/webpack-cli --config webpack.config.js",
-    "build:dev": "./node_modules/.bin/webpack-cli --config webpack.dev.config.js",
-    "example:server:start": "PORT=30001 INDEX_FILE='./server.html' node example/node-server",
-    "example:start": "npm run build:dev && npm run example:server:start && npm run example:client:start"
+    "build:watch": "./node_modules/.bin/webpack-cli --config webpack.config.js --mode=development --watch",
+    "server:start": "http-server -c-1 -p 30002 public",
+    "start": "npm run build:dist:watch & npm run server:start"
   },
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "@babel/preset-env": "^7.8.7",
     "babel-loader": "^8.0.6",
     "express": "^4.17.1",
+    "http-server": "^0.11.1",
     "ipfs": "^0.41.2",
     "ipfs-repo": "^1.0.0",
     "jest": "^25.1.0",
