@@ -120,6 +120,11 @@ const createOrbitStorageProxy = async (path, { postMessage }) => {
   return storage.createStore(path)
 }
 
+const cacheSupported = async (opts) => {
+  const isSupported = caller('supported', opts)
+  return isSupported()
+}
+
 const proxyGetMethod = (levelupInstance) => {
   const get = levelupInstance.get.bind(levelupInstance)
 
@@ -163,5 +168,6 @@ const createIpfsStorageProxy = ({ postMessage }) => {
 export {
   createClient,
   createOrbitStorageProxy,
-  createIpfsStorageProxy
+  createIpfsStorageProxy,
+  cacheSupported
 }

@@ -1,5 +1,6 @@
 const Level = require('level')
 const { expose } = require('postmsg-rpc')
+const Modernizr = require("modernizr")
 
 const deserialize = (v) => JSON.parse(v)
 const serialize = (v) => JSON.stringify(v)
@@ -118,6 +119,10 @@ const methods = {
   )
 }
 
+const supported = async () => new Promise((resolve, reject) => {
+    Modernizr.on('indexeddb', resolve)
+})
+
 const createServer = ({ postMessage }) => {
   let databases = {}
   let rpcs = {}
@@ -131,7 +136,8 @@ const createServer = ({ postMessage }) => {
       get: null,
       put: null,
       del: null,
-      batch: null
+      batch: null,
+      supported: null
     }
   }
 
@@ -143,6 +149,7 @@ const createServer = ({ postMessage }) => {
     rpcs.put = expose('put', methods.put.bind(null, databases), { postMessage })
     rpcs.del = expose('del', methods.del.bind(null, databases), { postMessage })
     rpcs.batch = expose('batch', methods.batch.bind(null, databases), { postMessage })
+    rpcs.supported = expose('supported', async () => true, { postMessage })
   }
 
   const stop = () => {
