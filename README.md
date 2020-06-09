@@ -36,3 +36,6 @@ $ npm run example:server:start
 ```
 
 The server will run on `http://localhost:30001` by default.
+
+## Maintainers
+[@zachferland](https://github.com/zachferland)
