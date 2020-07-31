@@ -44,11 +44,9 @@
     "ipfs": "^0.46.0",
     "ipfs-repo": "^3.0.2",
     "jest": "^25.1.0",
-    "levelup": "^4.3.2",
     "orbit-db": "^0.24.1",
     "orbit-db-cache": "^0.3.0",
     "orbit-db-keystore": "^0.3.4",
-    "orbit-db-storage-adapter": "^0.5.3",
     "serve-static": "^1.14.1",
     "standard": "^14.3.1",
     "webpack": "^4.42.0",
@@ -58,7 +56,8 @@
     "@babel/runtime": "^7.9.2",
     "abstract-leveldown": "^6.2.2",
     "level": "^6.0.1",
-    "modernizr": "^3.11.1",
-    "postmsg-rpc": "^2.4.0"
+    "postmsg-rpc": "^2.4.0",
+    "orbit-db-storage-adapter": "^0.5.3",
+    "levelup": "^4.3.2"
   }
 }

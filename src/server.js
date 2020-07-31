@@ -1,6 +1,6 @@
 const Level = require('level')
 const { expose } = require('postmsg-rpc')
-const Modernizr = require('modernizr')
+require('./modernizr.js')
 
 const deserialize = (v) => JSON.parse(v)
 const serialize = (v) => JSON.stringify(v)
@@ -120,7 +120,7 @@ const methods = {
 }
 
 const supported = async () => new Promise((resolve, reject) => {
-  Modernizr.on('indexeddb', resolve)
+  window.Modernizr.on('indexeddb', resolve)
 })
 
 const createServer = ({ postMessage }) => {

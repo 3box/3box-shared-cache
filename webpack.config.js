@@ -17,18 +17,7 @@ module.exports = {
            presets: ['@babel/preset-env']
           }
         }
-      },
-      {
-        loader: "webpack-modernizr-loader",
-        test: /\.modernizrrc\.js$/,
-        exclude: /(node_modules)/,
-        type: 'javascript/auto'
       }
     ]
-  },
-  resolve: {
-    alias: {
-      modernizr$: path.resolve(__dirname, "./.modernizrrc")
-    }
   }
 };
