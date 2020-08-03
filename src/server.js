@@ -1,9 +1,21 @@
-const Level = require('level')
+const Level = require('level-js')
 const { expose } = require('postmsg-rpc')
 require('./modernizr.js')
 
-const deserialize = (v) => JSON.parse(v)
+// const deserialize = (v) => JSON.parse(v)
+
+const deserialize = (v) =>  {
+  const r = JSON.parse(v)
+
+  if (r.type && r.type === 'Buffer') {
+    return Buffer.from(r.data)
+  }
+
+  return r
+}
+
 const serialize = (v) => JSON.stringify(v)
+
 
 const methods = {
   create: (databases, path, ...args) => new Promise(
@@ -17,6 +29,7 @@ const methods = {
     (resolve, reject) => {
       if (!databases[path]) {
         reject(new Error('Unknown database'))
+        return
       }
 
       databases[path].open(options, (err) => {
@@ -30,6 +43,7 @@ const methods = {
     (resolve, reject) => {
       if (!databases[path]) {
         reject(new Error('Unknown database'))
+        return
       }
 
       databases[path].close((err) => {
@@ -43,6 +57,7 @@ const methods = {
     (resolve, reject) => {
       if (!databases[path]) {
         reject(new Error('Unknown database'))
+        return
       }
 
       const k = deserialize(key)
@@ -50,9 +65,7 @@ const methods = {
       databases[path].get(k, options, (err, value) => {
         if (err) {
           reject(err)
-          // const keyNotFound = (/notfound/i).test(err) || err.notFound
-          // console.log({ keyNotFound, key })
-          // if (!keyNotFound) reject(err)
+          return
         }
         resolve(serialize(value))
       })
@@ -63,6 +76,7 @@ const methods = {
     (resolve, reject) => {
       if (!databases[path]) {
         reject(new Error('Unknown database'))
+        return
       }
 
       const k = deserialize(key)
@@ -79,6 +93,7 @@ const methods = {
     (resolve, reject) => {
       if (!databases[path]) {
         reject(new Error('Unknown database'))
+        return
       }
 
       const k = deserialize(key)
@@ -94,6 +109,7 @@ const methods = {
     (resolve, reject) => {
       if (!databases[path]) {
         reject(new Error('Unknown database'))
+        return
       }
 
       const ops = arr.map(
