@@ -55,9 +55,11 @@
   "dependencies": {
     "@babel/runtime": "^7.9.2",
     "abstract-leveldown": "^6.2.2",
+    "datastore-level": "^1.1.0",
     "level": "^6.0.1",
-    "postmsg-rpc": "^2.4.0",
+    "level-js": "^4.0.2",
+    "levelup": "^4.3.2",
     "orbit-db-storage-adapter": "^0.5.3",
-    "levelup": "^4.3.2"
+    "postmsg-rpc": "^2.4.0"
   }
 }

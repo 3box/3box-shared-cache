@@ -3,6 +3,7 @@ const { AbstractLevelDOWN } = require('abstract-leveldown')
 
 const OrbitDbStorageAdapter = require('orbit-db-storage-adapter')
 const LevelUp = require('levelup')
+const LevelStore = require('datastore-level')
 
 const createClient = (opts) => {
   return class Store extends AbstractLevelDOWN {
@@ -125,44 +126,13 @@ const cacheSupported = async (opts) => {
   return isSupported()
 }
 
-const proxyGetMethod = (levelupInstance) => {
-  const get = levelupInstance.get.bind(levelupInstance)
-
-  levelupInstance.get = (key, options, callback) => {
-    if (!callback) {
-      return new Promise(
-        (resolve, reject) => {
-          get(key, options, (err, value) => {
-            if (err) {
-              err.notFound = true
-              reject(err)
-            }
-            resolve(value)
-          })
-        }
-      )
-    }
-
-    get(key, options, (err, value) => {
-      if (err) {
-        err.notFound = true
-        callback(err, null)
-      }
-      callback(null, value)
-    })
-  }
-
-  return levelupInstance
-}
-
 const createIpfsStorageProxy = ({ postMessage }) => {
   const ClientStore = createClient({ postMessage })
 
-  return (...args) => proxyGetMethod(
-    LevelUp(
-      new ClientStore(...args)
-    )
-  )
+  return (path, opts) => {
+    const db = (path, opts) => LevelUp(new ClientStore(path, opts))
+    return new LevelStore(path, {db})
+  }
 }
 
 export {
