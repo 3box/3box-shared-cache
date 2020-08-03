@@ -52,4 +52,6 @@ class IframeCache {
   }
 }
 
-export default IframeCache
+export {
+  IframeCache
+}

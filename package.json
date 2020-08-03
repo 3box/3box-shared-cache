@@ -1,6 +1,6 @@
 {
   "name": "3box-shared-cache",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The shared cache module that 3box uses to share cache across domains using an iframe",
   "main": "src/index.js",
   "scripts": {
@@ -55,9 +55,11 @@
   "dependencies": {
     "@babel/runtime": "^7.9.2",
     "abstract-leveldown": "^6.2.2",
+    "datastore-level": "^1.1.0",
     "level": "^6.0.1",
-    "postmsg-rpc": "^2.4.0",
+    "level-js": "^4.0.2",
+    "levelup": "^4.3.2",
     "orbit-db-storage-adapter": "^0.5.3",
-    "levelup": "^4.3.2"
+    "postmsg-rpc": "^2.4.0"
   }
 }
