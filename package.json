@@ -1,6 +1,6 @@
 {
   "name": "3box-shared-cache",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "description": "The shared cache module that 3box uses to share cache across domains using an iframe",
   "main": "src/index.js",
   "scripts": {
