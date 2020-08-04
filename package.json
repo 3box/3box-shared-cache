@@ -60,5 +60,10 @@
     "levelup": "^4.3.2",
     "orbit-db-storage-adapter": "^0.5.3",
     "postmsg-rpc": "^2.4.0"
+  },
+  "standard": {
+    "ignore": [
+      "/src/modernizr.js"
+    ]
   }
 }

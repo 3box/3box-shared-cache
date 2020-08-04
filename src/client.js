@@ -6,10 +6,10 @@ const LevelStore = require('datastore-level')
 
 const createOrbitStorageProxy = async (path, { postMessage }) => {
   const db = (path, opts) => {
-    const levelDownProxy = new Store(path, Object.assign(opts,{ postMessage }) )
+    const levelDownProxy = new Store(path, Object.assign(opts, { postMessage }))
     return LevelUp(levelDownProxy)
   }
-  const storage = OrbitDbStorageAdapter( db, {})
+  const storage = OrbitDbStorageAdapter(db, {})
 
   return storage.createStore(path)
 }
@@ -17,9 +17,9 @@ const createOrbitStorageProxy = async (path, { postMessage }) => {
 const cacheSupported = async (opts) => caller('supported', opts)()
 
 const createIpfsStorageProxy = ({ postMessage }) => {
-  return function store(path, opts) {
+  return function store (path, opts) {
     const db = (path, opts) => {
-      const levelDownProxy = new Store(path, Object.assign(opts,{ postMessage }) )
+      const levelDownProxy = new Store(path, Object.assign(opts, { postMessage }))
       return LevelUp(levelDownProxy)
     }
     return new LevelStore(path, { db })
