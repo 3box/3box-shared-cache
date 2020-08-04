@@ -6,7 +6,8 @@ class Store extends AbstractLevelDOWN {
   constructor (location, options, ...args) {
     super(location, options, ...args)
     this.location = location
-    this.opts = options
+    this.opts = Object.assign({}, options)
+    delete options.postMessage
 
     caller('create', this.opts)(this.location, options, ...args)
   }
