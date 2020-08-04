@@ -1,21 +1,7 @@
 const Level = require('level-js')
 const { expose } = require('postmsg-rpc')
+const { serialize, deserialize } = require('./utils')
 require('./modernizr.js')
-
-// const deserialize = (v) => JSON.parse(v)
-
-const deserialize = (v) =>  {
-  const r = JSON.parse(v)
-
-  if (r.type && r.type === 'Buffer') {
-    return Buffer.from(r.data)
-  }
-
-  return r
-}
-
-const serialize = (v) => JSON.stringify(v)
-
 
 const methods = {
   create: (databases, path, ...args) => new Promise(
