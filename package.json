@@ -1,6 +1,6 @@
 {
   "name": "3box-shared-cache",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "The shared cache module that 3box uses to share cache across domains using an iframe",
   "main": "src/index.js",
   "scripts": {
@@ -42,7 +42,7 @@
     "express": "^4.17.1",
     "http-server": "^0.11.1",
     "ipfs": "^0.46.0",
-    "ipfs-repo": "^3.0.2",
+    "ipfs-repo": "^3.0.3",
     "jest": "^25.1.0",
     "orbit-db": "^0.24.1",
     "orbit-db-cache": "^0.3.0",
@@ -56,7 +56,6 @@
     "@babel/runtime": "^7.9.2",
     "abstract-leveldown": "^6.2.2",
     "datastore-level": "^1.1.0",
-    "level": "^6.0.1",
     "level-js": "^4.0.2",
     "levelup": "^4.3.2",
     "orbit-db-storage-adapter": "^0.5.3",

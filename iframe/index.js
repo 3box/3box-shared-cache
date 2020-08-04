@@ -1,4 +1,4 @@
-const { createServer } = require("../src")
+const { createServer } = require("../src/server")
 
 const serverOpts = {
   postMessage: (...args) => {
