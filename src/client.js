@@ -16,12 +16,14 @@ const createOrbitStorageProxy = async (path, { postMessage }) => {
 
 const cacheSupported = async (opts) => caller('supported', opts)()
 
-const createIpfsStorageProxy = ({ postMessage }) => (path, opts) => {
-  const db = (path, opts) => {
-    const levelDownProxy = new Store(path, Object.assign(opts,{ postMessage }) )
-    return LevelUp(levelDownProxy)
+const createIpfsStorageProxy = ({ postMessage }) => {
+  return function store(path, opts) {
+    const db = (path, opts) => {
+      const levelDownProxy = new Store(path, Object.assign(opts,{ postMessage }) )
+      return LevelUp(levelDownProxy)
+    }
+    return new LevelStore(path, { db })
   }
-  return new LevelStore(path, { db })
 }
 
 export {
