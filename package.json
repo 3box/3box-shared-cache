@@ -1,14 +1,16 @@
 {
   "name": "3box-shared-cache",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "The shared cache module that 3box uses to share cache across domains using an iframe",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "lint": "./node_modules/.bin/standard --verbose src/**",
     "test": "jest",
+    "build:es5": "./node_modules/.bin/babel src --out-dir lib",
     "build": "./node_modules/.bin/webpack-cli --config webpack.config.js",
     "build:watch": "./node_modules/.bin/webpack-cli --config webpack.config.js --mode=development --watch",
     "server:start": "http-server -c-1 -p 30002 public",
+    "prepublishOnly": "npm run build:es5",
     "start": "npm run build:watch & npm run server:start"
   },
   "repository": {
@@ -34,10 +36,14 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/plugin-transform-runtime": "^7.9.0",
-    "@babel/preset-env": "^7.8.7",
-    "@babel/preset-react": "^7.10.1",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-loader": "^8.0.6",
     "express": "^4.17.1",
     "http-server": "^0.11.1",
