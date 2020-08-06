@@ -1,7 +1,13 @@
 const Level = require('level-js')
 const { expose } = require('postmsg-rpc')
 const { serialize, deserialize } = require('./utils')
-require('./modernizr.js')
+
+let indexeddbOpen = true
+try {
+  require('./modernizr.js')
+} catch (e) {
+  indexeddbOpen = false
+}
 
 const methods = {
   create: (databases, path, ...args) => new Promise(
@@ -122,7 +128,12 @@ const methods = {
 }
 
 const supported = async () => new Promise((resolve, reject) => {
-  window.Modernizr.on('indexeddb', resolve)
+  if (!indexeddbOpen) resolve(false)
+  try {
+    window.Modernizr.on('indexeddb', resolve)
+  } catch {
+    resolve(false)
+  }
 })
 
 const createServer = ({ postMessage }) => {
