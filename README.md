@@ -1,3 +1,7 @@
+# ⚠️ ⚠️ Deprecated in favor of Ceramic ⚠️ ⚠️ 
+> 3box.js and related tools built by 3Box Labs are deprecated and no loger supported. Developers are encurraged to build with https://ceramic.network which is a more secure and decentralized protocol for sovereign data.
+
+
 # 3box-shared-cache
 "The shared cache module that 3box uses to share cache across domains using an iframe
 
